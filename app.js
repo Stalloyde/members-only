@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
+const localStrategy = require('passport-local');
+const bcrypt = require('bcrypt');
 
 const indexRouter = require('./routes/indexRoute');
 const signUpRouter = require('./routes/signUpRoute');
