@@ -1,8 +1,8 @@
 extends layout
-
+//work preserving values in form on fail submission
 block content
-  h2 Sign Up
-  form(action="post")
+  h2 Sign Up 
+  form(method="post")
     div 
       label(for='username') Username:
       input(type="text" name='username' id='username' required)
@@ -11,6 +11,10 @@ block content
       input(type="text" name='password' id='password' required)
     div
       label(for='confirm-password') Confirm Password:
-      input(type="text" name='confirm-password' id='confirm-password' required) 
+      input(type="text" name='confirmPassword' id='confirmPassword' required) 
+      if errors 
+        each error in errors 
+          ul
+            li.error-msg #{error.msg}
     div 
       button(type='submit') Submit
