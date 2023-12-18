@@ -26,6 +26,11 @@ button:hover {
   transform: scale(1.03);
 }
 
+.error-msg {
+  list-style: none;
+  color: red;
+}
+
 header {
   padding: 1em;
   display: flex;
