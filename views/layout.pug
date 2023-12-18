@@ -1,7 +1,15 @@
 doctype html
 html
   head
-    title= title
+    title= `Members Only`
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+  header 
+    div
+      a(href='/'): h1 Members Only
+    nav
+      a(href='/sign-up'): button Sign Up
+      a(href='/login'): button Log In
+  main
     block content
+  footer
+    | #[em Created by Ethan Chan @ 2023]

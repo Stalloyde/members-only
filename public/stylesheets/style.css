@@ -1,8 +1,61 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a:visited {
+  color: black;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
 }
+
+h1 {
+  color: white;
+}
+ 
+button {
+  padding: 0.5em;
+  border-radius: 10px;
+}
+ 
+button:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+header {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  background-color: rgb(5, 5, 58);
+  box-shadow: 0px 1px 5px rgb(5, 5, 58);
+}
+
+main {
+  padding: 1em;
+}
+
+footer {
+  background-color: rgb(5, 5, 58);
+  color: white;
+  padding: 1em;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0px 1px 5px rgb(5, 5, 58);
+}
+
+
+header > div {
+ flex-grow: 1;
+}
+
+header > nav > a {
+  padding: 0.5em;
+}
+
+
