@@ -14,23 +14,28 @@ exports.signUpPOST = [
   body('confirmPassword').custom((value, { req }) => value === req.body.password).withMessage('The passwords do not match'),
 
   asyncHandler(async (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-      if (err) {
-        return next(err);
-      }
-      return hashedPassword;
-    });
-
-    const newUser = new User({
+    let newUser = new User({
       username: req.body.username,
-      password: bcrypt.hashedPassword,
+      password: req.body.password,
     });
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render('signUp', { errors: errors.array(), user: newUser });
     } else {
-      await newUser.save();
+      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+        if (err) {
+          return next(err);
+        }
+
+        newUser = new User({
+          username: req.body.username,
+          password: hashedPassword,
+        });
+
+        await newUser.save();
+      });
+
       res.render('login');
     }
   }),
