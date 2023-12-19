@@ -36,7 +36,7 @@ exports.signUpPOST = [
         await newUser.save();
       });
 
-      res.render('login');
+      res.redirect('/login');
     }
   }),
 ];
