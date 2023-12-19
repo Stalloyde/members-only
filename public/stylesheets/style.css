@@ -23,7 +23,8 @@ button {
  
 button:hover {
   cursor: pointer;
-  transform: scale(1.03);
+  border: 1px solid black;
+  background-color: rgb(235, 228, 228);
 }
 
 .error-msg {
