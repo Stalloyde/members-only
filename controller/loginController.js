@@ -10,6 +10,17 @@ exports.loginGET = (req, res, next) => {
 };
 
 exports.loginPOST = [
+  body('username').trim().escape(),
+  body('password').trim().escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.redirect('/login', { errors: errors.array() });
+    }
+    next();
+  }),
+
   passport.authenticate('local', {
     successRedirect: '/members/basic',
     failureRedirect: '/login',
