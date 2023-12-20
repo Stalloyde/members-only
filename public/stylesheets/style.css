@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+label.checkbox:hover, input.checkbox:hover {
+  cursor: pointer;
+}
+
 a:visited {
   color: black;
 }

@@ -9,6 +9,10 @@ block content
       label(for='username') Username:
       input(type="text" name='username' id='username' value=(user === undefined ? '' : user.username) required)
     div
+      input.checkbox(type="checkbox" name='isVip' id='isVip')
+      label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month):
+    div
+    div
       label(for='password') Password:
       input(type="password" name='password' id='password' required)
     div
