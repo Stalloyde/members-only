@@ -7,8 +7,12 @@ html
     div
       a(href='/'): h1 Members Only
     nav
-      a(href='/sign-up'): button Sign Up
-      a(href='/login'): button Log In
+      if (!loggedIn) 
+        a(href='/sign-up'): button Sign Up
+        a(href='/login'): button Log In
+      else
+        a(href='/mod-login'): button Admin Access
+        a(href='/logout'): button Log Out
   main
     block content
   footer

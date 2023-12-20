@@ -5,5 +5,5 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/users');
 
 exports.membersBasicGET = (req, res, next) => {
-  res.render('membersBasic');
+  res.render('membersBasic', { loggedIn: true });
 };
