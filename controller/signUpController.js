@@ -23,20 +23,25 @@ exports.signUpPOST = [
     if (!errors.isEmpty()) {
       res.render('signUp', { errors: errors.array(), user: newUser });
     } else {
-      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-        if (err) {
-          return next(err);
-        }
+      const users = await User.find({ username: newUser.username });
+      if (users.length > 0) {
+        res.render('signUp', { duplicateError: 'Username has been taken. Try another' });
+      } else {
+        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+          if (err) {
+            return next(err);
+          }
 
-        newUser = new User({
-          username: req.body.username,
-          password: hashedPassword,
+          newUser = new User({
+            username: req.body.username,
+            password: hashedPassword,
+          });
+
+          await newUser.save();
         });
 
-        await newUser.save();
-      });
-
-      res.redirect('/login');
+        res.redirect('/login');
+      }
     }
   }),
 ];

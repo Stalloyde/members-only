@@ -4,6 +4,8 @@ block content
   h2 Sign Up 
   form(method="post")
     div 
+      if duplicateError 
+        p.error-msg #{duplicateError}
       label(for='username') Username:
       input(type="text" name='username' id='username' value=(user === undefined ? '' : user.username) required)
     div
