@@ -22,9 +22,8 @@ exports.loginPOST = [
   }),
 
   passport.authenticate('local', {
-    successRedirect: '/members/basic',
     failureRedirect: '/login',
     failureFlash: true,
   }),
-
+  (req, res) => res.redirect(`/members/${req.user.id}/basic`),
 ];
