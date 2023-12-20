@@ -25,5 +25,5 @@ exports.loginPOST = [
     failureRedirect: '/login',
     failureFlash: true,
   }),
-  (req, res) => res.redirect(`/members/${req.user.id}/basic`),
+  (req, res) => res.redirect(`/members/${req.user.id}`),
 ];
