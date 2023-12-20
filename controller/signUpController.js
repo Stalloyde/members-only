@@ -10,6 +10,8 @@ exports.signUpGET = (req, res, next) => {
 
 exports.signUpPOST = [
   body('username').trim().escape(),
+  body('isVip')
+    .customSanitizer((input) => Boolean(input)),
   body('password').trim().escape(),
   body('confirmPassword').custom((value, { req }) => value === req.body.password).withMessage('The passwords do not match'),
 
@@ -17,6 +19,8 @@ exports.signUpPOST = [
     let newUser = new User({
       username: req.body.username,
       password: req.body.password,
+      isVip: req.body.isVip,
+      isMod: false,
     });
 
     const errors = validationResult(req);
@@ -35,6 +39,8 @@ exports.signUpPOST = [
           newUser = new User({
             username: req.body.username,
             password: hashedPassword,
+            isVip: req.body.isVip,
+            isMod: false,
           });
 
           await newUser.save();
