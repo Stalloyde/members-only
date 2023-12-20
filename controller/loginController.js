@@ -1,13 +1,19 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
+const User = require('../models/users');
 
 exports.loginGET = (req, res, next) => {
-  res.render('login');
+  const errorMessages = req.flash();
+  res.render('login', { errorMessages });
 };
 
-// sanitise and validate before authenticate
-// generate error.msg in view template
-exports.loginPOST = passport.authenticate('local', {
-  failureRedirect: '/login',
-  successRedirect: '/members/basic',
-});
+exports.loginPOST = [
+  passport.authenticate('local', {
+    successRedirect: '/members/basic',
+    failureRedirect: '/login',
+    failureFlash: true,
+  }),
+
+];
