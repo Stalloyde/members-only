@@ -3,6 +3,9 @@ extends layout
 block content
   h2 Login
   form(method="post")
+    if errorMessages
+      for err in errorMessages
+        p.error-msg #{err}
     div 
       label(for='username') Username:
       input(type="text" name='username' id='username' required)
