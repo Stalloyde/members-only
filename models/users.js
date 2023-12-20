@@ -9,12 +9,8 @@ const UserSchema = new Schema({
   password: {
     type: String, required: true,
   },
-  messages: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Message',
-  },
-  isMember: Boolean,
-  isAdmin: Boolean,
+  isVip: Boolean,
+  isMod: Boolean,
 });
 
 UserSchema.virtual('url').get(function () {
