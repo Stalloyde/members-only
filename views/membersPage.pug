@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h2 Hi, #{currentUser.username}
+  h3 Messages Feed
+  if isVip
+    p Render all messages here with create post feature
+  else 
+    p Render all anonymous messages here with create post feature
+  a(href=`./${currentUser.id}/new-message`): button New Message
