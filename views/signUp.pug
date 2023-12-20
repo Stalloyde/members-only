@@ -7,17 +7,17 @@ block content
       if duplicateError 
         p.error-msg #{duplicateError}
       label(for='username') Username:
-      input(type="text" name='username' id='username' value=(user === undefined ? '' : user.username) required)
+      input#username(type="text" name='username' value=(user === undefined ? '' : user.username) required)
     div
-      input.checkbox(type="checkbox" name='isVip' id='isVip')
-      label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month):
+      input#isVip.checkbox(type="checkbox" name='isVip')
+      label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month)
     div
     div
       label(for='password') Password:
-      input(type="password" name='password' id='password' required)
+      input#password(type="password" name='password' required)
     div
-      label(for='confirm-password') Confirm Password:
-      input(type="password" name='confirmPassword' id='confirmPassword' required) 
+      label(for='confirmPassword') Confirm Password:
+      input#confirmPassword(type="password" name='confirmPassword' required) 
       if errors 
         each error in errors 
           ul
