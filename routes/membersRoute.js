@@ -7,5 +7,6 @@ const router = express.Router();
 /* GET home page. */
 router.get('/:id', membersController.membersGET);
 router.get('/:id/new-message', membersController.membersNewMessageGET);
+router.post('/:id/new-message', membersController.membersNewMessagePOST);
 
 module.exports = router;
