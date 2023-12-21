@@ -5,16 +5,21 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   header 
     div
-      a(href='/'): h1 Members Only
+      if (!loggedIn)
+        a(href='/'): h1 Members Only
+      else 
+        a(href=`/members/${currentUser.username}`): h1 Members Only
     nav
       if (!loggedIn) 
         a(href='/sign-up'): button Sign Up
         a(href='/login'): button Log In
       else if (loggedIn && isMod)
-        a(href='/admin-page'): button Admin Access
+        a(href='/logout'): button Log Out
+      else if (loggedIn && isVip)
+        a(href='/mod-signUp'): button MOD Sign Up
         a(href='/logout'): button Log Out
       else
-        a(href='/mod-signUp'): button MOD Sign Up
+        a(href='vip-signUp'): button VIP Sign Up
         a(href='/logout'): button Log Out
   main
     block content
