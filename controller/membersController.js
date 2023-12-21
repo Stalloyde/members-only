@@ -7,7 +7,7 @@ const Message = require('../models/message');
 
 exports.membersGET = async (req, res, next) => {
   const [currentUser, messages] = await Promise.all([
-    User.findById(req.params.id),
+    User.findById(req.user.id),
     Message.find().populate('user').sort({ datePosted: -1 }),
   ]);
 
@@ -17,10 +17,10 @@ exports.membersGET = async (req, res, next) => {
 };
 
 exports.membersNewMessageGET = async (req, res, next) => {
-  const currentUser = await User.findById(req.params.id);
+  const currentUser = await User.findById(req.user.id);
 
   res.render('membersNewMessage', {
-    loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod,
+    currentUser, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod,
   });
 };
 
@@ -28,10 +28,9 @@ exports.membersNewMessagePOST = [
   // sanistise and validate form inputs
   body('title').trim().escape(),
   body('message').trim().escape(),
-  // handle errors
-  // handle success
+
   async (req, res, next) => {
-    const currentUser = await User.findById(req.params.id);
+    const currentUser = await User.findById(req.user.id);
     const newMessage = new Message({
       user: currentUser,
       title: req.body.title,
@@ -43,11 +42,11 @@ exports.membersNewMessagePOST = [
 
     if (!errors.isEmpty()) {
       res.render('membersNewMessage', {
-        loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod,
+        currentUser, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod,
       });
     } else {
       await newMessage.save();
-      res.redirect(`/members/${currentUser.id}`);
+      res.redirect(`/members/${currentUser.username}`);
     }
   },
 ];
