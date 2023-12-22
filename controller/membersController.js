@@ -94,7 +94,6 @@ exports.membersVipSignupPOST = [
       isVip: req.body.isVip,
       isMod: req.user.isMod,
     });
-    console.log(updatedUser);
     await User.findByIdAndUpdate(req.user.id, updatedUser);
     res.redirect(`/members/${updatedUser.username}`);
   },
