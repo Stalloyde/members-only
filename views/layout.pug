@@ -16,10 +16,10 @@ html
       else if (loggedIn && isMod)
         a(href='/logout'): button Log Out
       else if (loggedIn && isVip)
-        a(href='/mod-signUp'): button MOD Sign Up
+        a(href=`/members/${currentUser.username}/mod-signup`): button MOD Sign Up
         a(href='/logout'): button Log Out
       else
-        a(href='vip-signUp'): button VIP Sign Up
+        a(href=`/members/${currentUser.username}/vip-signup`): button VIP Sign Up
         a(href='/logout'): button Log Out
   main
     block content
