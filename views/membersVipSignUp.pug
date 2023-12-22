@@ -1,14 +1,15 @@
 extends layout
 block content
   h2 VIP membership 
+  p You are about to subscribe to our VIP membership. Please verify your credentials to confirm subscription
   form(method="post")
+    div
+      input#isVip.checkbox(type="checkbox" name='isVip' required checked=true)
+      label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month)
+    div
     div 
       label(for='username') Username:
       input#username(type="text" name='username' required)
-    div
-      input#isVip.checkbox(type="checkbox" name='isVip' required)
-      label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month)
-    div
     div
       label(for='password') Password:
       input#password(type="password" name='password' required)
