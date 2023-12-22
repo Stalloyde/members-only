@@ -12,14 +12,12 @@ block content
     div
       label(for='password') Password:
       input#password(type="password" name='password' required)
-      //- if errors 
-      //-   each error in errors 
-      //-     ul
-      //-       li.error-msg #{error.msg}
-    if errorMessages
-      for err in errorMessages
-        p.error-msg #{err}
-    else
-      p asdasd
+      if errors 
+        each error in errors 
+          ul
+            li.error-msg #{error.msg}
+      if errorMessages
+        for err in errorMessages
+          p.error-msg #{err}
     div 
       button(type='submit') Submit
