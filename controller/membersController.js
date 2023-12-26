@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -83,7 +84,7 @@ exports.membersVipSignupPOST = [
   }),
 
   passport.authenticate('local', {
-    failureRedirect: '/members/member/vip-signup',
+    failureRedirect: './vip-signup',
     failureFlash: true,
   }),
   async (req, res) => {
@@ -98,3 +99,104 @@ exports.membersVipSignupPOST = [
     res.redirect(`/members/${updatedUser.username}`);
   },
 ];
+
+// exports.membersModSignupGET = async (req, res, next) => {
+//   const currentUser = await User.findById(req.user.id);
+//   const errorMessages = req.flash();
+
+//   res.render('membersModSignUp', {
+//     currentUser, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod, errorMessages,
+//   });
+// };
+
+// exports.membersModSignupPOST = [
+//   body('password').equals(process.env.MOD).withMessage('Incorrect password'),
+
+//   asyncHandler(async (req, res, next) => {
+//     const currentUser = await User.findById(req.user.id);
+//     const errors = validationResult(req);
+
+//     if (!errors.isEmpty()) {
+//       res.render('membersModSignUp', {
+//         currentUser,
+//         loggedIn: true,
+//         isVip: currentUser.isVip,
+//         isMod: currentUser.isMod,
+//         errors: errors.array(),
+//       });
+//     } else {
+//       const updatedUser = new User({
+//         id: req.user.id,
+//         username: req.user.username,
+//         password: req.user.password,
+//         isVip: req.body.isVip,
+//         isMod: true,
+//       });
+//       await User.findByIdAndUpdate(req.user.id, updatedUser);
+//       res.redirect(`/members/${updatedUser.username}`);
+//     }
+//   }),
+// ];
+
+// exports.membersDeletePostGET = async (req, res, next) => {
+//   const [currentUser, message] = await Promise.all([
+//     User.findById(req.user.id),
+//     Message.findById(req.params.id).populate('user').sort({ datePosted: -1 }),
+//   ]);
+
+//   res.render('membersDeletePost', {
+//     currentUser, message, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod,
+//   });
+// };
+
+// exports.membersDeletePostPOST = [
+//   body('username').trim().escape(),
+//   body('password').trim().escape(),
+
+//   async (req, res, next) => {
+//     const [currentUser, message] = await Promise.all([
+//       User.findById(req.user.id),
+//       Message.findById(req.params.id).populate('user'),
+//     ]);
+
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       res.render('membersDeletePost', {
+//         currentUser,
+//         message,
+//         loggedIn: true,
+//         isVip: currentUser.isVip,
+//         isMod: currentUser.isMod,
+//         errors: errors.array(),
+//       });
+//       next();
+//     }
+//   },
+
+//   passport.authenticate('local', {
+//   }),
+//   async (req, res) => {
+//     const [currentUser, message] = await Promise.all([
+//       User.findById(req.user.id),
+//       Message.findById(req.params.id).populate('user').sort({ datePosted: -1 }),
+//     ]);
+
+//     if (!req.authenticated()) {
+//       res.redirect(`/members/${req.currentUser.username}/${message.id}/delete`);
+//     } else {
+//       const updatedUser = new User({
+//         id: req.user.id,
+//         username: req.user.username,
+//         password: req.user.password,
+//         isVip: req.body.isVip,
+//         isMod: req.user.isMod,
+//       });
+//       await User.findByIdAndUpdate(req.user.id, updatedUser);
+//       res.redirect(`/members/${updatedUser.username}`);
+//     }
+//   },
+// authenticate user credentials
+// valid -> update message
+// invalid -> rerender
+// update messages
+// ];
