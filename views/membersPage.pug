@@ -3,18 +3,19 @@ extends layout
 block content
   h2 Hi, #{currentUser.username}
   h3 Messages Feed
-  if isVip
+  if isVip && !isMod
     for message in messages 
       strong #{message.title}
       p #{message.message}
       em Posted by #{message.user.username} (#{message.datePostedFormattedVIP})
       hr
       br
-  else if isMod
+  else if isVip && isMod 
     for message in messages 
       strong #{message.title}
       p #{message.message}
       em Posted by #{message.user.username} (#{message.datePostedFormattedMOD})
+      a(href=`./${currentUser.username}/${message.id}/delete`): button Delete
       hr
       br
   else
