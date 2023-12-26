@@ -100,103 +100,91 @@ exports.membersVipSignupPOST = [
   },
 ];
 
-// exports.membersModSignupGET = async (req, res, next) => {
-//   const currentUser = await User.findById(req.user.id);
-//   const errorMessages = req.flash();
+exports.membersModSignupGET = async (req, res, next) => {
+  const currentUser = await User.findById(req.user.id);
+  const errorMessages = req.flash();
 
-//   res.render('membersModSignUp', {
-//     currentUser, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod, errorMessages,
-//   });
-// };
+  res.render('membersModSignUp', {
+    currentUser, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod, errorMessages,
+  });
+};
 
-// exports.membersModSignupPOST = [
-//   body('password').equals(process.env.MOD).withMessage('Incorrect password'),
+exports.membersModSignupPOST = [
+  body('password').equals(process.env.MOD).withMessage('Incorrect password'),
 
-//   asyncHandler(async (req, res, next) => {
-//     const currentUser = await User.findById(req.user.id);
-//     const errors = validationResult(req);
+  asyncHandler(async (req, res, next) => {
+    const currentUser = await User.findById(req.user.id);
+    const errors = validationResult(req);
 
-//     if (!errors.isEmpty()) {
-//       res.render('membersModSignUp', {
-//         currentUser,
-//         loggedIn: true,
-//         isVip: currentUser.isVip,
-//         isMod: currentUser.isMod,
-//         errors: errors.array(),
-//       });
-//     } else {
-//       const updatedUser = new User({
-//         id: req.user.id,
-//         username: req.user.username,
-//         password: req.user.password,
-//         isVip: req.body.isVip,
-//         isMod: true,
-//       });
-//       await User.findByIdAndUpdate(req.user.id, updatedUser);
-//       res.redirect(`/members/${updatedUser.username}`);
-//     }
-//   }),
-// ];
+    if (!errors.isEmpty()) {
+      res.render('membersModSignUp', {
+        currentUser,
+        loggedIn: true,
+        isVip: currentUser.isVip,
+        isMod: currentUser.isMod,
+        errors: errors.array(),
+      });
+    } else {
+      const updatedUser = new User({
+        id: req.user.id,
+        username: req.user.username,
+        password: req.user.password,
+        isVip: req.body.isVip,
+        isMod: true,
+      });
+      await User.findByIdAndUpdate(req.user.id, updatedUser);
+      res.redirect(`/members/${updatedUser.username}`);
+    }
+  }),
+];
 
-// exports.membersDeletePostGET = async (req, res, next) => {
-//   const [currentUser, message] = await Promise.all([
-//     User.findById(req.user.id),
-//     Message.findById(req.params.id).populate('user').sort({ datePosted: -1 }),
-//   ]);
+exports.membersDeletePostGET = async (req, res, next) => {
+  const errorMessages = req.flash();
+  const [currentUser, message] = await Promise.all([
+    User.findById(req.user.id),
+    Message.findById(req.params.id).populate('user').sort({ datePosted: -1 }),
+  ]);
 
-//   res.render('membersDeletePost', {
-//     currentUser, message, loggedIn: true, isVip: currentUser.isVip, isMod: currentUser.isMod,
-//   });
-// };
+  res.render('membersDeletePost', {
+    currentUser,
+    message,
+    loggedIn: true,
+    isVip: currentUser.isVip,
+    isMod: currentUser.isMod,
+    errorMessages,
+  });
+};
 
-// exports.membersDeletePostPOST = [
-//   body('username').trim().escape(),
-//   body('password').trim().escape(),
+exports.membersDeletePostPOST = [
+  body('username').trim().escape(),
+  body('password').trim().escape(),
 
-//   async (req, res, next) => {
-//     const [currentUser, message] = await Promise.all([
-//       User.findById(req.user.id),
-//       Message.findById(req.params.id).populate('user'),
-//     ]);
+  async (req, res, next) => {
+    const [currentUser, message] = await Promise.all([
+      User.findById(req.user.id),
+      Message.findById(req.params.id).populate('user'),
+    ]);
 
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       res.render('membersDeletePost', {
-//         currentUser,
-//         message,
-//         loggedIn: true,
-//         isVip: currentUser.isVip,
-//         isMod: currentUser.isMod,
-//         errors: errors.array(),
-//       });
-//       next();
-//     }
-//   },
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render('membersDeleteGET', {
+        currentUser,
+        message,
+        loggedIn: true,
+        isVip: currentUser.isVip,
+        isMod: currentUser.isMod,
+        errors: errors.array(),
+      });
+    }
+    next();
+  },
 
-//   passport.authenticate('local', {
-//   }),
-//   async (req, res) => {
-//     const [currentUser, message] = await Promise.all([
-//       User.findById(req.user.id),
-//       Message.findById(req.params.id).populate('user').sort({ datePosted: -1 }),
-//     ]);
-
-//     if (!req.authenticated()) {
-//       res.redirect(`/members/${req.currentUser.username}/${message.id}/delete`);
-//     } else {
-//       const updatedUser = new User({
-//         id: req.user.id,
-//         username: req.user.username,
-//         password: req.user.password,
-//         isVip: req.body.isVip,
-//         isMod: req.user.isMod,
-//       });
-//       await User.findByIdAndUpdate(req.user.id, updatedUser);
-//       res.redirect(`/members/${updatedUser.username}`);
-//     }
-//   },
-// authenticate user credentials
-// valid -> update message
-// invalid -> rerender
-// update messages
-// ];
+  passport.authenticate('local', {
+    failureRedirect: './delete',
+    failureFlash: true,
+  }),
+  async (req, res) => {
+    await Message.findByIdAndDelete(req.params.id);
+    res.redirect(`/members/${req.user.username}`);
+  },
+];

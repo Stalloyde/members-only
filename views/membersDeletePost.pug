@@ -1,0 +1,28 @@
+extends layout
+block content
+  h2 Deleting the following message 
+  br
+  strong #{message.title}
+  p #{message.message}
+  em Posted by #{message.user.username} (#{message.datePostedFormattedMOD})
+  br
+  br
+  strong Input credentials to confirm deletion
+  form(method="post")
+    div 
+      label(for='username') Username:
+      input#username(type="text" name='username' required)
+    div
+      label(for='password') Password:
+      input#password(type="password" name='password' required)
+      if errors 
+        each error in errors 
+          ul
+            li.error-msg #{error.msg}
+      if errorMessages
+        for err in errorMessages
+          p.error-msg #{err}
+    div 
+      button(type='submit') Submit
+
+
