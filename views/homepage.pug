@@ -1,7 +1,13 @@
 extends layout
 
 block content
-  p Join the club!
-  p <strong>BASIC</strong> users are able to post/view anonymous messages 
-  p <strong>VIP</strong> users can view user and message details and may receive an invitation to become a moderator
-  p <strong>MODERATORS</strong> have access to admin rights
+  .home-container 
+    .home-header
+      h2 Join the club!
+    .home-content
+      div <h3>BASIC</h3> 
+        p Post/view anonymous messages 
+      div <h3>VIP</h3> 
+        p Basic features + view user and message details and may receive an invitation to become a moderator
+      div <h3>MODERATORS</h3> 
+        p All features + admin rights
