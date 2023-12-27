@@ -1,28 +1,33 @@
 extends layout
 
 block content
-  h2 Hi, #{currentUser.username}
-  h3 Messages Feed
-  if isVip && !isMod
-    for message in messages 
-      strong #{message.title}
-      p #{message.message}
-      em Posted by #{message.user.username} (#{message.datePostedFormattedVIP})
-      hr
-      br
-  else if isVip && isMod 
-    for message in messages 
-      strong #{message.title}
-      p #{message.message}
-      em Posted by #{message.user.username} (#{message.datePostedFormattedMOD})
-      a(href=`./${currentUser.username}/${message.id}/delete`): button Delete
-      hr
-      br
-  else
-    for message in messages 
-      strong #{message.title}
-      p #{message.message}
-      em Posted by Anonymous
-      hr
-      br
-  a(href=`./${currentUser.username}/new-message`): button New Message
+  .container
+    .header
+      h2 Messages Feed
+    br
+    h3 Hi, #{currentUser.username}
+    if isVip && !isMod
+      for message in messages 
+        .message-container
+          strong #{message.title}
+          p #{message.message}
+          em Posted by #{message.user.username} (#{message.datePostedFormattedVIP})
+          hr
+    else if isVip && isMod 
+      for message in messages
+        .moderator
+          .message-container
+            strong #{message.title}
+            p #{message.message}
+            em Posted by #{message.user.username} (#{message.datePostedFormattedMOD})
+          .delete-container
+            a(href=`./${currentUser.username}/${message.id}/delete`): button Delete
+        hr
+    else
+      for message in messages 
+        .message-container
+          strong #{message.title}
+          p #{message.message}
+          em Posted by Anonymous
+          hr
+    a(href=`./${currentUser.username}/new-message`): button New Message

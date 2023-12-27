@@ -53,6 +53,7 @@ main {
   padding: 2em;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
 }
 
 .header {
@@ -69,6 +70,25 @@ main {
   display: grid;
   grid-template-columns: repeat(3,300px);
   padding: 1em;
+}
+
+h2 {
+  text-decoration: underline;
+}
+
+.home-content > div {
+  text-align: center;
+  padding: 1em;
+}
+
+.content > :nth-child(2) {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.home-content > div > p {
+  text-align: center;
+  padding: 0.5em;
 }
 
 form {
@@ -100,25 +120,14 @@ input {
   padding: 0.5em;
 }
 
-h3 {
-  text-decoration: underline;
-}
-
-.home-content > div {
-  text-align: center;
-  padding: 1em;
-}
-
-.content > :nth-child(2) {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.home-content > div > p {
-  text-align: center;
+.message-container {
   padding: 0.5em;
 }
 
+.moderator {
+  display: flex;
+  align-items: center;
+}
 
 footer {
   background-color: rgb(5, 5, 58);
