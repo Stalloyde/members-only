@@ -56,20 +56,22 @@ main {
   overflow-y: scroll;
 }
 
+.container > div {
+  padding: 1em;
+}
+
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(37, 35, 35);
   color: white;
-  padding: 1em;
   border-radius: 10px;
 }
 
 .home-content {
   display: grid;
   grid-template-columns: repeat(3,300px);
-  padding: 1em;
 }
 
 h2 {
@@ -88,7 +90,6 @@ h2 {
 
 .home-content > div > p {
   text-align: center;
-  padding: 0.5em;
 }
 
 form {
@@ -121,7 +122,8 @@ input {
 }
 
 .message-container {
-  padding: 0.5em;
+  padding: 0 1em;
+  width: 500px;
 }
 
 .moderator {

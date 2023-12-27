@@ -1,17 +1,21 @@
 extends layout
 block content
-  h2 MODERATOR Sign Up
-  p Please input the invitation password to upgrade your account to moderator status 
-  form(method="post")
-    div
-      label(for='password') Password:
-      input#password(type="password" name='password' required)
-      if errors 
-        each error in errors 
-          ul
-            li.error-msg #{error.msg}
-      if errorMessages
-        for err in errorMessages
-          p.error-msg #{err}
-    div 
-      button(type='submit') Submit
+  .container
+    .header
+      h2 ACCESSING MODERATOR FEATURES
+    br
+    em Please input the moderator invitation password
+    .form-content
+      form(method="post")
+        div
+          label(for='password') Password:
+          input#password(type="password" name='password' required)
+          if errors 
+            each error in errors 
+              ul
+                li.error-msg #{error.msg}
+          if errorMessages
+            for err in errorMessages
+              p.error-msg #{err}
+        div 
+          button(type='submit') Submit
