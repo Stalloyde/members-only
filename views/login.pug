@@ -1,16 +1,19 @@
 extends layout
 
 block content
-  h2 Login
-  form(method="post")
-    if errorMessages
-      for err in errorMessages
-        p.error-msg #{err}
-    div 
-      label(for='username') Username:
-      input(type="text" name='username' id='username' required)
-    div
-      label(for='password') Password:
-      input(type="password" name='password' id='password' required)
-    div 
-      button(type='submit') Login
+  .container 
+    .header
+      h2 Login
+    .form-content
+      form(method="post")
+        div 
+          label(for='username') Username:
+          input(type="text" name='username' id='username' required)
+        div
+          label(for='password') Password:
+          input(type="password" name='password' id='password' required)
+          if errorMessages
+            for err in errorMessages
+              p.error-msg #{err}
+        div 
+          button(type='submit') Login

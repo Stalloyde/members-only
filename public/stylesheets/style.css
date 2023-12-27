@@ -23,6 +23,8 @@ header > div > a > h1 {
 button {
   padding: 0.5em;
   border-radius: 10px;
+  font-size: 15px;
+  width: fit-content;
 }
  
 button:hover {
@@ -45,6 +47,7 @@ header {
 }
 
 main {
+  font-size: 20px;
   display: grid;
   height: 90vh;
   padding: 2em;
@@ -52,7 +55,7 @@ main {
   align-items: center;
 }
 
-.home-header {
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,8 +68,36 @@ main {
 .home-content {
   display: grid;
   grid-template-columns: repeat(3,300px);
-  margin: 1em;
-  font-size: 20px;
+  padding: 1em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width:min-content;
+
+}
+
+form > div {
+  display: grid;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.isVip {
+  display: flex;
+}
+
+#isVip {
+  width: 100px;
+  height: 30px;
+}
+
+input {
+  width: 400px;
+  height: 40px;
+  border-radius: 10px;
+  padding: 0.5em;
 }
 
 h3 {
@@ -78,7 +109,7 @@ h3 {
   padding: 1em;
 }
 
-.home-content > :nth-child(2) {
+.content > :nth-child(2) {
   border-left: 1px solid black;
   border-right: 1px solid black;
 }

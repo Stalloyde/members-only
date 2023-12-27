@@ -1,25 +1,27 @@
 extends layout
 block content
-  h2 Sign Up 
-  form(method="post")
-    div 
-      if duplicateError 
-        p.error-msg #{duplicateError}
-      label(for='username') Username:
-      input#username(type="text" name='username' value=(user === undefined ? '' : user.username) required)
-    div
-      input#isVip.checkbox(type="checkbox" name='isVip')
-      label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month)
-    div
-    div
-      label(for='password') Password:
-      input#password(type="password" name='password' required)
-    div
-      label(for='confirmPassword') Confirm Password:
-      input#confirmPassword(type="password" name='confirmPassword' required) 
-      if errors 
-        each error in errors 
-          ul
-            li.error-msg #{error.msg}
-    div 
-      button(type='submit') Submit
+  .container
+    .header
+      h2 Sign Up 
+    .form-content 
+      form(method="post")
+        div 
+          if duplicateError 
+            p.error-msg #{duplicateError}
+          label(for='username') Username:
+          input#username(type="text" name='username' value=(user === undefined ? '' : user.username) required)
+        div.isVip
+          input#isVip.checkbox(type="checkbox" name='isVip')
+          label.checkbox(for='isVip')  Sign up as a VIP Member ($9.99/month)
+        div
+          label(for='password') Password:
+          input#password(type="password" name='password' required)
+        div
+          label(for='confirmPassword') Confirm Password:
+          input#confirmPassword(type="password" name='confirmPassword' required) 
+          if errors 
+            each error in errors 
+              ul
+                li.error-msg #{error.msg}
+        div 
+          button(type='submit') Submit
