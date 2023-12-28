@@ -65,6 +65,10 @@ exports.membersVipSignupGET = async (req, res, next) => {
 exports.membersVipSignupPOST = [
   body('isVip')
     .customSanitizer((input) => Boolean(input)),
+  body('username').trim().escape().custom((value, { req }) => {
+    if (value !== req.user.username) throw new Error('Username does not match current user');
+    return true;
+  }),
   body('password').trim().escape(),
 
   asyncHandler(async (req, res, next) => {
@@ -87,6 +91,7 @@ exports.membersVipSignupPOST = [
     failureRedirect: './vip-signup',
     failureFlash: true,
   }),
+
   async (req, res) => {
     const updatedUser = new User({
       id: req.user.id,
